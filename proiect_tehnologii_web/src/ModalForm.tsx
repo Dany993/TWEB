@@ -8,7 +8,7 @@ import {
     Modal,
 
   } from 'antd';
-import CardModel from './Model';
+import CarModel from './Model';
 
 const { RangePicker } = DatePicker;
 
@@ -27,9 +27,9 @@ const formItemLayout = {
 
 interface ModalFormProps {
   visible: boolean;
-  onSubmit: (data: CardModel) => void;
+  onSubmit: (data: CarModel) => void;
   onCancel:() => void;
-  card : CardModel;
+  card : CarModel;
 }
 
 const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel ,onSubmit, card }) => {
@@ -38,15 +38,17 @@ const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel ,onSubmit, card
  
 
   const onFinish = (values: any) => {
-    const data:CardModel = {
-      data: {
+    const data:CarModel = {
+      
         model : values.model,
         marca :values.marca,
         descriere : values.descriere,
-        dataFabricarii : values.dataFabricarii.toString()
-        }
+        dataFabricarii : values.dataFabricarii.toString(),
+        price : values.price,
+        imageUrl : values.imageUrl
+        
     }
-    console.log("OnFinishMethod values")
+    console.log("OnFinishMethod values");
     console.log(values);
     alert(values);
     onSubmit(data); 
@@ -70,6 +72,12 @@ const ModalForm: React.FC<ModalFormProps> = ({ visible, onCancel ,onSubmit, card
           </Form.Item>
 
           <Form.Item label="Marca" name="marca" rules={[{ required: true, message: 'Please input your surname!' }]}>
+           <Input />
+          </Form.Item>
+          <Form.Item label="Imagine" name="imageUrl" rules={[{ required: true, message: 'Please  path to image!' }]}>
+           <Input />
+          </Form.Item>
+          <Form.Item label="Price" name="price" rules={[{ required: true, message: 'Please input car price!' }]}>
            <Input />
           </Form.Item>
          <Form.Item label="Descriere" name="descriere" rules={[{ required: true, message: 'Please input a description!' }]}>

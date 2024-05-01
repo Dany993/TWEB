@@ -34,23 +34,25 @@ const items: MenuProps['items'] = [
 
 const initialData:CardModel[] = [
   {
-    data: {
-      
       model: "Kia",
       marca: "Rio X-Line",
       descriere: "Motor 1.5 benzin Cutie automat",
-      dataFabricarii: "12.12.2022"
-    }
+      dataFabricarii: "12.12.2022",
+      price: 15000,
+      imageUrl: "https://th.bing.com/th/id/OIP.uSvrGt2YfFUublMAoqa3OwHaDt?rs=1&pid=ImgDetMain"
+    
   },
   {
-    data: {
+    
     
       model: "Nissan",
       marca: "Quasqai",
       descriere: "Motod 1.5 diesel Cutie manuala",
-      dataFabricarii: "02.10.2012"
+      dataFabricarii: "02.10.2012",
+      price: 10000,
+      imageUrl: "https://th.bing.com/th/id/OIP.npVi6x3sQlJ6q6ruiXGX9QHaE7?rs=1&pid=ImgDetMain"
     }
-  }
+  
 ]; 
 
 
@@ -70,8 +72,8 @@ const App: React.FC = () => {
   };
 
   const handleFormSubmit = (data: CardModel) => {
-    console.log("Handle submit")
-    console.log(data)
+    console.log("Handle submit");
+    console.log(data);
     setCardData([...cardData, data]);
     console.log("final card data");
     console.log(cardData);
@@ -80,23 +82,27 @@ const App: React.FC = () => {
   };
 
   const CardObj:CardModel = {
-        data:{
+        
 
           model: "string",
           marca:"string",
           descriere: "string",
-          dataFabricarii: "string"        }
-  } 
+          dataFabricarii: "string", 
+          price: 1,
+          imageUrl: " url"       
+  } ;
 
 
   const emptyCard:CardModel = {
-    data:{
+  
       model: "",
       marca:"",
       descriere: "",
-      dataFabricarii: ""    }
+      dataFabricarii: "" ,
+      price: 0,
+      imageUrl: ""  
 
-  }
+  };
    
   const {
     token: { colorBgContainer, borderRadiusLG },
