@@ -13,6 +13,7 @@ const getLocalStorageData = (key: string): any => {
 
 class LocalStorageWrapper {
   data: Model[] | null = null;
+  users: { username: string, password: string }[] | null = null; 
 
   constructor() {
     makeObservable(this, {
@@ -27,9 +28,11 @@ class LocalStorageWrapper {
     this.data = newData;
     setLocalStorageData('models', newData);
   }
+  
 
   async loadDataFromLocalStorage() {
     const storedData = getLocalStorageData('model');
+    const storedUsers = getLocalStorageData('users'); 
     if (!storedData) {
       const initialData: Model[] = [
         {
@@ -64,6 +67,16 @@ class LocalStorageWrapper {
       this.data = initialData;
     } else {
       this.data = storedData;
+    }
+    if (!storedUsers) { 
+      const initialUsers = [
+        { username: 'daniel', password: 'danielb' },
+        { username: 'utilizator', password: 'parola' },
+      ];
+      setLocalStorageData('users', initialUsers);
+      this.users = initialUsers;
+    } else {
+      this.users = storedUsers;
     }
   }
 }
