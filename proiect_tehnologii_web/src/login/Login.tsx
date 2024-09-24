@@ -1,25 +1,45 @@
 import React from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input } from 'antd';
+import "../css/login.css";
 import { useNavigate } from 'react-router-dom';
+import localStorageWrapper from '../localStorage/LocalStorageWrapper';
 
-const Login: React.FC = () => {
-  const navigate = useNavigate();
-  const onFinish = (values: any) => {
-
-    const { username, password } = values;
-
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-    const user = users.find((user: any) => user.username === username && user.password === password);
-
-    if (user) {
-        navigate("/products");
-    } else {
-      alert('Nume de utilizator sau parolă incorecte.');
-    }
+const LoginComponent: React.FC = () => {
+    const navigate = useNavigate();
+    const onFinish = async (values: any) => {
+      const { username, password } = values;
+  
+      try {
+          const response = await fetch('http://localhost:8080/api/login', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ username, password })
+          });
+  
+          if (!response.ok) {
+              throw new Error('Login failed');
+          }
+  
+          const userData = await response.json();
+  
+          // Verifică dacă userData are tokenul și rolul
+          if (userData.accessToken) {
+              localStorageWrapper.setToken(userData.accessToken); 
+              navigate("/telefoane");
+          } else {
+              alert('Login failed: Invalid response data');
+          }
+  
+      } catch (error) {
+          alert('Nume de utilizator sau parolă incorecte.');
+      }
   };
+  
+  
 
   return (
+    <div className="login-container">
       <Form
         name="normal_login"
         className="login-form"
@@ -59,7 +79,8 @@ const Login: React.FC = () => {
           Or <a href="">register now!</a>
         </Form.Item>
       </Form>
+    </div>
   );
 };
 
-export default Login;
+export default LoginComponent;

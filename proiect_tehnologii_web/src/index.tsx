@@ -1,23 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import App from './layouts/App';
 import {
     createBrowserRouter,
     RouterProvider,
   } from "react-router-dom";
-import App from './App';
-import Login from './Login';
+import MainLayout from './layouts/MainLayout';
+import LoginComponent from './login/Login';
 
   const router = createBrowserRouter([
-   
     {
       path: "/",
-      element: <Login/>
+      element: <MainLayout/>,   
     },
     {
-      path: "/products",
+      path: "/telefoane",
       element: <App/>
-    }
-    
+    },
+    {
+      path: "/login", // Adaugă ruta pentru login
+      element: <LoginComponent/> // Asociază componenta de login
+  }
   ]);
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
